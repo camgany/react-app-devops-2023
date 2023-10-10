@@ -9,3 +9,10 @@ docker build -t react_npm_start:latest -t react_npm_start:0.1 -f Dockerfile_npm_
 
 docker run -d --name npm_start_container -p 5000:3000 react_npm_start
 
+docker build -t react_npm_build:latest -t react_npm_build:0.1 -f Dockerfile_npm_build .
+
+docker run -d --name [container_name] -p 80:80 react_npm_build:latest
+
+docker build -t react_npm_build_nginx:latest .
+
+docker run -d --name react_app_nginx -p 8080:80 react_npm_build_nginx:latest

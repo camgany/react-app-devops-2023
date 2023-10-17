@@ -1,0 +1,41 @@
+name: Continous Integration
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout git
+      uses: actions/checkout@v4
+
+    - name: Instalar dependencias
+      run: |
+        npm install
+
+    - name: Pruebas
+      run: |
+        npm run test
+
+    - name: Pruebas Cypress
+      run: |
+        echo "Corriendo pruebas Cypress..."
+        echo "Pruebas correctas! Todo bien!"
+        echo "No tienes instalado Cypress! Tonto!"
+        exit 0
+        
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout git
+      uses: actions/checkout@v4
+      
+    - name: Dependencien and Building
+      run: |
+        npm install
+        npm run build

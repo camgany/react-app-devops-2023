@@ -27,7 +27,7 @@ jobs:
         echo "Pruebas correctas! Todo bien!"
         echo "No tienes instalado Cypress! Tonto!"
         exit 0
-        
+
   build:
     runs-on: ubuntu-20.04
 
@@ -39,3 +39,9 @@ jobs:
       run: |
         npm install
         npm run build
+
+    - name: Subir artefacto
+      uses: actions/upload-artifacts@v3
+      with:
+        name: Build
+        path: build

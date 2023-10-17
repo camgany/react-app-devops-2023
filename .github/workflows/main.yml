@@ -41,7 +41,7 @@ jobs:
         npm run build
 
     - name: Subir artefacto
-      uses: actions/upload-artifacts@v3
+      uses: actions/upload-artifact@v3
       with:
         name: Build
         path: build

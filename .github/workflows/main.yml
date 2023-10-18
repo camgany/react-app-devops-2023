@@ -84,11 +84,15 @@ jobs:
 
   deploy_into_dev_server:
     runs-on: ubuntu-latest
+    needs: [build_docker_image_and_push_to_docker_hub]
     steps:
       - name: Commands
-        run: |
-          echo ${{ secrets.REACT_SERVER_PRIVATE_KEY }} > key.pem
-          chmod 440 key.pem
-          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker stop Servidor_Desarrollo"
-          ssh -i key.pem ec2-user@34.228.78.13 "sudo docker run --name Servidor_Desarrollo -d -p 8080:80 cesarill/react-app:latest"
-      
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.228.78.13
+          username: ec2-user
+          key: ${{ secrets.REACT_SERVER_PRIVATE_KEY }}
+          script: |
+            sudo docker stop REACT_SERVICE
+            sudo docker run -d -p 8080:80 --name REACT_SERVICE cesarill/react-app:latest
+            
